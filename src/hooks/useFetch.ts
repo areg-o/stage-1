@@ -41,10 +41,5 @@ export function useFetch({queryFn}: useFetchProps) {
         }
     }, [queryFn])
 
-
-    
-
-
-    
     return status
 }

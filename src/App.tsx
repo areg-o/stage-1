@@ -12,7 +12,7 @@ function App() {
     <>
 
       {data && 
-          data.map((user) => (<div>{JSON.stringify(user.name)}</div>))
+          data.map((user) => (<div key={user.id}>{user.name}</div>))
         }
 
     </>
