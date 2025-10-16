@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { IUser } from './usersType'
+import type { IUser } from './userType'
 import apiClient from "../lib/apiClient"
 
 const usersAPI = {
