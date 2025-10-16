@@ -1,0 +1,103 @@
+ТЕХНИЧЕСКОЕ ЗАДАНИЕ №1
+----------------------
+Тема: React Dashboard App (ручная реализация и улучшенная версия)
+
+Цель: Научиться строить React-приложение с нуля, использовать TypeScript, Axios, кастомные хуки, Context API и стилизацию (SCSS → Tailwind). Позже улучшить проект, добавив React Query и shadcn/ui.
+
+Продолжительность: ~1,5 недели
+
+====================================
+ЭТАП 1. ОСНОВНАЯ РЕАЛИЗАЦИЯ (ручная)
+====================================
+
+🧩 Функционал:
+1. Страница Dashboard со списком пользователей (или продуктов) из публичного API (например https://jsonplaceholder.typicode.com/users).
+2. Возможностaь фильтрации и поиска.
+3. Модальное окно с деталями выбранного пользователя.
+4. Простая форма добавления нового пользователя (без бэкенда, данные сохраняются в state).
+
+📂 Структура проекта:
+src/
+ ├── api/
+ │    └── users.ts              // Axios-запросы
+ ├── components/
+ │    ├── UserCard.tsx
+ │    ├── UserList.tsx
+ │    └── Modal.tsx
+ ├── hooks/
+ │    ├── useFetch.ts           // кастомный хук для фетчинга
+ │    └── useModal.ts           // управление модальным окном
+ ├── context/
+ │    └── AppContext.tsx        // глобальное состояние
+ ├── pages/
+ │    ├── Dashboard.tsx
+ │    └── AddUser.tsx
+ ├── styles/
+ │    ├── variables.scss
+ │    ├── mixins.scss
+ │    └── index.scss
+ ├── App.tsx
+ └── main.tsx
+
+⚙️ Технологии:
+- React 18
+- TypeScript
+- Axios
+- Context API
+- SCSS (модули)
+- Vite
+
+💡 Цели этапа:
+- Освоить структурирование приложения без готовых библиотек.
+- Написать кастомные хуки:
+  - useFetch — с состояниями loading/error/data
+  - useModal — открытие/закрытие модалок
+- Реализовать Context для глобального состояния (например, текущий фильтр).
+- Настроить SCSS-переменные, миксины, нейминг.
+
+====================================
+ЭТАП 2. УЛУЧШЕНИЕ ПРОЕКТА
+====================================
+
+🧩 Улучшения:
+1. Добавить Tailwind CSS и заменить SCSS-стили.
+2. Подключить TanStack Query (React Query) для запросов и кеширования данных.
+3. Добавить UI-компоненты из shadcn/ui (Button, Dialog, Input).
+4. Оптимизировать хуки — превратить useFetch в адаптер над React Query.
+5. Настроить ESLint + Prettier.
+6. Добавить типизацию ответов API через Zod.
+
+📂 Новая структура (после улучшения):
+src/
+ ├── api/
+ │    └── users.ts
+ ├── components/
+ │    ├── ui/                  // переиспользуемые элементы (Button, Input)
+ │    ├── UserCard.tsx
+ │    ├── UserList.tsx
+ │    └── Modal.tsx
+ ├── hooks/
+ │    ├── useUsers.ts          // React Query хук
+ │    └── useModal.ts
+ ├── context/
+ │    └── AppContext.tsx
+ ├── pages/
+ │    ├── Dashboard.tsx
+ │    └── AddUser.tsx
+ ├── config/
+ │    ├── queryClient.ts
+ │    └── env.ts
+ ├── styles/
+ │    └── globals.css          // Tailwind
+ ├── App.tsx
+ └── main.tsx
+
+⚙️ Технологии:
+- Tailwind CSS
+- TanStack Query
+- shadcn/ui
+- Zod
+- ESLint + Prettier
+
+🎯 Результат:
+Готовое SPA, структурированное и оптимизированное под реальные проекты, с современным UI и грамотной архитектурой хуков.
