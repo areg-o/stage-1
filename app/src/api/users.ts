@@ -1,20 +1,28 @@
 import axios from 'axios'
+import type { IUser } from './usersType'
+import apiClient from "../lib/apiClient"
 
-const api = {
-
-    _apiBase: "https://jsonplaceholder.typicode.com/users",
+const usersAPI = {
 
     async getUsers() {
-        const resp = await axios.get(this._apiBase)
-        return resp.data
+        try {
+            const resp = await apiClient.get<IUser[]>("/users")
+            return resp.data
+        } catch (error) {
+            return `An error occurred: ${error}`
+        }
     },
 
     async getUserById(id: number) {
-        const resp = await axios.get(`${this._apiBase}/${id}`)
-        return resp.data
+        try {
+            const resp = await axios.get<IUser>(`/users/${id}`)
+            return resp.data
+        } catch (error) {
+            return `An error occurred: ${error}`
+        }
     }
 
 }
 
-export default api
+export default usersAPI
 
