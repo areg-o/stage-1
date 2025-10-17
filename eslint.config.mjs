@@ -14,7 +14,7 @@ export default[
                 },
                 ecmaVersion: "latest",
                 sourceType: "module",
-                project: "./tsconfig.json", // Point to your tsconfig.json for type-aware linting
+                project: "./tsconfig.app.json", // Point to your tsconfig.json for type-aware linting
             }
         }
     }, pluginJs.configs.recommended, // Recommended JS rules
@@ -39,6 +39,11 @@ export default[
         }
     }, {
         // Optional: Define ignores for specific files or directories
-        ignores : ["node_modules/", "dist/"]
+        ignores : [
+            "node_modules/",
+            "dist/",
+            "eslint.config.mjs",
+            "vite.config.ts"
+        ]
     }
 ];
