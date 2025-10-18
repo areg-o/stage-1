@@ -1,9 +1,9 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const _apiBase = "https://jsonplaceholder.typicode.com"
+const _apiBase = 'https://jsonplaceholder.typicode.com';
 
 const apiClient = axios.create({
-    baseURL: _apiBase,
-})
+  baseURL: _apiBase,
+});
 
-export default apiClient
+export default apiClient;

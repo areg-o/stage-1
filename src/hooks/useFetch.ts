@@ -1,45 +1,34 @@
-import type { useFetchProps } from "./useFetchProps";
-import type { IUser } from "../api/userType";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-export function useFetch({queryFn}: useFetchProps) {
+interface IOptions<T> {
+  queryFn(): Promise<T>;
+}
 
-    const [status, setStatus] = useState({
-        data: null,
-        loading: true,
-        error: false
-    })
+interface IResult<K> {
+  data: K | undefined;
+  loading: boolean;
+  error: Error | undefined;
+}
 
+export function useFetch<T>({ queryFn }: IOptions<T>): IResult<T> {
+  const [data, setData] = useState<T | undefined>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | undefined>();
 
-    useEffect(() => {
-        let isMounted = true
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const resp = await queryFn();
+        setData(resp);
+      } catch (e) {
+        setError(e as Error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
-        const fetchData = async () => {
-            try {
-                const resp = await queryFn()
-                if(isMounted) {
-                    setStatus({
-                        data: resp,
-                        loading: true,
-                        error: false
-                    })
-                }
-            } catch {
-                if(isMounted) {
-                    setStatus({
-                        data: null,
-                        loading: true,
-                        error: false
-                    })
-                }  
-            }
-        }
-
-        fetchData()
-        return () => {
-            isMounted = false
-        }
-    }, [queryFn])
-
-    return status
+  return { data, loading, error };
 }

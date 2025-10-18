@@ -1,22 +1,27 @@
-import { use, useEffect } from "react"
-import usersAPI from "./api/users"
-import { useFetch } from "./hooks/useFetch"
+import usersAPI from '@/api/users';
+import type { IUser } from '@/api/userType';
+import { useFetch } from '@/hooks/useFetch';
 
 function App() {
+  const { data, loading, error } = useFetch<IUser[]>({
+    queryFn: () => usersAPI.getUsers(),
+  });
 
-  let {data} = useFetch({
-    queryFn: usersAPI.getUsers
-  })
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error.message}</p>;
+  }
 
   return (
     <>
-
-      {data && 
-          data.map((user) => (<div key={user.id}>{user.name}</div>))
-        }
-
+      {data?.map((user) => (
+        <div key={user.id}>{user.name}</div>
+      ))}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
