@@ -1,6 +1,7 @@
 import axios from 'axios';
-import type { IUser } from '@api/userType';
-import apiClient from '@lib/apiClient';
+
+import type { IUser } from '@/api/userType';
+import apiClient from '@/lib/apiClient';
 
 const usersAPI = {
   async getUsers() {

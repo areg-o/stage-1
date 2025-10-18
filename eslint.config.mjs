@@ -1,55 +1,127 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
-import prettierConfig from "eslint-config-prettier";
-import pluginPrettier from "eslint-plugin-prettier";
+import globals from 'globals';
+import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import tsParser from '@typescript-eslint/parser';
+import reactPlugin from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import importPlugin from 'eslint-plugin-import';
+import unusedImports from 'eslint-plugin-unused-imports';
+import prettier from 'eslint-config-prettier';
 
-export default[
-    {
-        languageOptions: {
-            globals: globals.browser,
-            parser: tseslint.parser,
-            parserOptions: {
-                ecmaFeatures: {
-                    jsx: true, // Enable JSX parsing
-                },
-                ecmaVersion: "latest",
-                sourceType: "module",
-                project: "./tsconfig.app.json", // Point to your tsconfig.json for type-aware linting
-            }
-        }
+export default [
+  // Ignore build artifacts and config files
+  {
+    ignores: ['node_modules/', 'dist/', 'build/', 'coverage/', 'public/', 'eslint.config.mjs'],
+  },
+
+  // Base JS recommended rules
+  js.configs.recommended,
+
+  // React plugin settings (version auto-detect)
+  { settings: { react: { version: 'detect' } } },
+
+  // TypeScript recommended flat config (does NOT enable type-aware rules by default)
+  ...tseslint.configs.recommended,
+
+  // React recommended rules (flat): register plugin and apply its recommended rules
+  {
+    plugins: { react: reactPlugin },
+    rules: reactPlugin.configs.recommended.rules,
+  },
+
+  // Project-specific settings and custom rules for source files
+  {
+    files: ['src/**/*.{ts,tsx,js,jsx}'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        ecmaFeatures: { jsx: true },
+        // Uncomment the next line to enable full type-aware linting (requires a valid tsconfig.json)
+        // project: './tsconfig.json',
+      },
+      globals: globals.browser,
     },
-    pluginJs.configs.recommended, // Recommended JS rules
-    ...tseslint.configs.recommended, { // Recommended TypeScript rules
-        ...pluginReactConfig, // Recommended React rules
-        settings: {
-            react: {
-                version: "detect", // Automatically detect React version
-            }
-        }
-    }, {
-        // Optional: Add custom rules or overrides here
-        rules: {
-            // Example: Disable a specific rule
-            "no-unused-vars": "off",
-            // Example: Enforce a specific rule
-            "@typescript-eslint/no-unused-vars": [
-                "warn", {
-                    argsIgnorePattern: "^_"
-                }
-            ]
-        }
-    }, {
-        // Optional: Define ignores for specific files or directories
-        ignores: ["node_modules/", "dist/", "eslint.config.mjs", "vite.config.ts"]
-    }, {
-        plugins: {
-            prettier: pluginPrettier
+    plugins: {
+      'react-refresh': reactRefresh,
+      'react-hooks': reactHooks,
+      import: importPlugin,
+      'unused-imports': unusedImports,
+    },
+    settings: {
+      react: { version: 'detect' },
+      'import/resolver': {
+        // allow eslint-plugin-import to resolve typescript paths
+        typescript: {},
+      },
+    },
+    rules: {
+      // React 17+ JSX transform: no need to import React
+      'react/react-in-jsx-scope': 'off',
+
+      // Prefer TS-aware unused vars rule — we disable built-in and let TS plugin handle or use unused-imports for imports
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      // unused-imports handles removing unused imports (error) and flags unused vars (warn)
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          varsIgnorePattern: '^_',
+          args: 'after-used',
+          argsIgnorePattern: '^_',
         },
-        rules: {
-            ...prettierConfig.rules, // отключает конфликтующие ESLint правила
-            "prettier/prettier": "error", // заставляет ESLint подсвечивать ошибки форматирования
-        }
-    }
+      ],
+
+      // Hooks best practices
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'off',
+
+      // Vite React Refresh safety (optional)
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+
+      // Common TS improvements
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+
+      // Stylistic / safety
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-debugger': 'error',
+
+      // Import order and organization
+      'import/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+          'newlines-between': 'always',
+          alphabetize: { order: 'asc', caseInsensitive: true },
+        },
+      ],
+    },
+  },
+
+  // Keep Prettier as the last extend to disable formatting rules from ESLint that conflict with Prettier
+  prettier,
+
+  // Additional override for config & script files
+  {
+    files: ['*.config.*', 'scripts/**/*.*', '.eslintrc.*'],
+    languageOptions: { ecmaVersion: 'latest', sourceType: 'module', globals: globals.node },
+    rules: {
+      // allow to require in scripts
+      '@typescript-eslint/no-var-requires': 'off',
+    },
+  },
+
+  // Tests
+  {
+    files: ['**/__tests__/**', '**/*.{spec,test}.{ts,tsx,js,jsx}'],
+    env: { jest: true },
+    rules: {
+      '@typescript-eslint/no-non-null-assertion': 'off',
+    },
+  },
 ];

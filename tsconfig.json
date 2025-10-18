@@ -1,26 +1,7 @@
 {
-  "include": ["src"],
-  "compilerOptions": {
-    "jsx": "react",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
-    "paths": {
-      "@components": ["src/components"],
-      "@components/*": ["src/components/*"],
-      "@hooks": ["src/hooks"],
-      "@hooks/*": ["src/hooks/*"],
-      "@api": ["src/api"],
-      "@api/*": ["src/api/*"],
-      "@context": ["src/context"],
-      "@context/*": ["src/context/*"],
-      "@lib": ["src/lib"],
-      "@lib/*": ["src/lib/*"],
-      "@pages": ["src/pages"],
-      "@pages/*": ["src/pages/*"],
-      "@styles": ["src/styles"],
-      "@styles/*": ["src/styles/*"],
-    }
-  },
-  "jsx": "react-jsx"
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }
