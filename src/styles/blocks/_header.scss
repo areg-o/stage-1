@@ -1,0 +1,20 @@
+.header {
+    @include m-block;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-bottom: 1px solid black;
+    &-item-1 {
+        font-size: 1.5em;
+        cursor: pointer;
+        &:hover {
+            opacity: .5;
+        }
+    }
+    &-item-2 > button {
+        @include m-button(#605BFF);
+        margin-left: 10px
+    }
+    &-item-2 > * {
+        height: #{$elemHeightMin};
+        box-sizing: border-box;
+    }
+}

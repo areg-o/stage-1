@@ -1,28 +1,10 @@
+import { Dashboard } from "@/pages/Dashboard";
 import React from 'react';
-import usersAPI from '@api/users';
-import { useFetch } from '@hooks/useFetch';
-import type { IUser } from '@api/userType';
-// import  { UserList }  from "@components/UserList"
 
 function App() {
-  const { data, loading, error } = useFetch<IUser[]>({
-    queryFn: () => usersAPI.getUsers(),
-  });
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>{error.message}</p>;
-  }
 
   return (
-    <>
-      {data?.map((user) => (
-        <div key={user.id}>{user.name}</div>
-      ))}
-    </>
+    <Dashboard />
   );
 }
 

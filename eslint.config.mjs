@@ -43,13 +43,14 @@ export default[
     }, {
         // Optional: Define ignores for specific files or directories
         ignores: ["node_modules/", "dist/", "eslint.config.mjs", "vite.config.ts"]
-    }, {
-        plugins: {
-            prettier: pluginPrettier
-        },
-        rules: {
-            ...prettierConfig.rules, // отключает конфликтующие ESLint правила
-            "prettier/prettier": "error", // заставляет ESLint подсвечивать ошибки форматирования
-        }
-    }
+    }, 
+    // {
+    //     plugins: {
+    //         prettier: pluginPrettier
+    //     },
+    //     rules: {
+    //         ...prettierConfig.rules, // отключает конфликтующие ESLint правила
+    //         "prettier/prettier": "error", // заставляет ESLint подсвечивать ошибки форматирования
+    //     }
+    // }
 ];
