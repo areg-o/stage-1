@@ -1,14 +1,19 @@
 import type { IUser } from '@/api/userType';
-import { UserCard } from '@/components/UserCard';
 
-interface IUserListArg<T> {
-  data: IUser[];
+interface UserListProps {
+  users: IUser[];
 }
 
-export function UserList<T>(data: T) {
+export function UserList({ users }: UserListProps) {
   return (
     <div className="users">
-      <UserCard />
+      {users.map((user) => (
+        <div key={user.id} className="user-data">
+          <span>{user.id}</span>
+          <span>{user.name}</span>
+          <span>{user.email}</span>
+        </div>
+      ))}
     </div>
   );
 }
