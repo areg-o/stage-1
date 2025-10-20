@@ -943,7 +943,7 @@
     "@tailwindcss/oxide-win32-arm64-msvc" "4.1.15"
     "@tailwindcss/oxide-win32-x64-msvc" "4.1.15"
 
-"@tailwindcss/vite@^4.1.14":
+"@tailwindcss/vite@^4.1.15":
   version "4.1.15"
   resolved "https://registry.yarnpkg.com/@tailwindcss/vite/-/vite-4.1.15.tgz#da8d5432a89f8ff091a3c34681c33bf155cf58f5"
   integrity sha512-B6s60MZRTUil+xKoZoGe6i0Iar5VuW+pmcGlda2FX+guDuQ1G1sjiIy1W0frneVpeL/ZjZ4KEgWZHNrIm++2qA==
@@ -3949,7 +3949,7 @@ synckit@^0.11.7:
   dependencies:
     "@pkgr/core" "^0.2.9"
 
-tailwindcss@4.1.15, tailwindcss@^4.1.14:
+tailwindcss@4.1.15, tailwindcss@^4.1.15:
   version "4.1.15"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-4.1.15.tgz#1437ee75ed8f66d8d866da5e25daa38d06ce5cea"
   integrity sha512-k2WLnWkYFkdpRv+Oby3EBXIyQC8/s1HOFMBUViwtAh6Z5uAozeUSMQlIsn/c6Q2iJzqG6aJT3wdPaRNj70iYxQ==
