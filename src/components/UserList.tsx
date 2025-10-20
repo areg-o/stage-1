@@ -10,16 +10,31 @@ export function UserList({ users }: UserListProps) {
             {users.map((user) => (
                 <ul
                     key={user.id}
-                    className="user-data bg-white shadow-md rounded-lg p-6 mb-4 space-y-2 border border-gray-200"
+                    className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] flex flex-col mb-4"
                 >
-                    <li className="text-gray-500 text-sm font-semibold">
-                        <span className="text-gray-900">{user.id}</span>
+                    <li className="p-4 border-b border-gray-200 last:border-b-0">
+                        <div className="flex flex-row items-center space-x-4">
+                            <span className="text-sm font-semibold text-gray-500 min-w-[2.5rem]">
+                                ID:
+                            </span>
+                            <span className="font-medium text-gray-900 truncate">{user.id}</span>
+                        </div>
                     </li>
-                    <li className="text-gray-500 text-sm font-semibold">
-                        <span className="text-gray-900">{user.name}</span>
+                    <li className="p-4 border-b border-gray-200 last:border-b-0">
+                        <div className="flex flex-row items-center space-x-4">
+                            <span className="text-sm font-semibold text-gray-500 min-w-[2.5rem]">
+                                Имя:
+                            </span>
+                            <span className="font-medium text-gray-900 truncate">{user.name}</span>
+                        </div>
                     </li>
-                    <li className="text-gray-500 text-sm font-semibold">
-                        <span className="text-gray-900">{user.email}</span>
+                    <li className="p-4 border-b border-gray-200 last:border-b-0">
+                        <div className="flex flex-row items-center space-x-4">
+                            <span className="text-sm font-semibold text-gray-500 min-w-[2.5rem]">
+                                Email:
+                            </span>
+                            <span className="font-medium text-gray-900 truncate">{user.email}</span>
+                        </div>
                     </li>
                 </ul>
             ))}
