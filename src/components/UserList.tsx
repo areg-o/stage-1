@@ -1,15 +1,14 @@
-import React from 'react';
+import type { IUser } from '@/api/userType';
 import { UserCard } from '@/components/UserCard';
-import type { IUser } from '@/api/userType'
 
 interface IUserListArg<T> {
-    data: IUser[];
+  data: IUser[];
 }
 
 export function UserList<T>(data: T) {
-    return (
-        <div className="users">
-            <UserCard />
-        </div>
-    )
+  return (
+    <div className="users">
+      <UserCard />
+    </div>
+  );
 }

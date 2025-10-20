@@ -12,7 +12,7 @@ interface IResult<K> {
 
 export function useFetch<T>({ queryFn }: IOptions<T>): IResult<T> {
   const [data, setData] = useState<T | undefined>();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | undefined>();
 
   useEffect(() => {
