@@ -11,8 +11,6 @@ export function Header() {
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             setSearchText(searchValue);
-        } else if (e.key === 'Backspace') {
-            setSearchText('');
         }
     };
 
