@@ -1,11 +1,8 @@
 import { createContext, useContext, useState } from 'react';
 
-interface ISearchContext<T> {
-    searchText: T | string;
-    setSearchText: (text: string) => void;
-}
+import type { ISearchContext } from '@/context/searchContextType';
 
-const SearchContext = createContext<ISearchContext<T> | undefined>(undefined);
+const SearchContext = createContext<ISearchContext | undefined>(undefined);
 
 export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
     const [searchText, setSearchText] = useState('');
@@ -17,8 +14,10 @@ export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
     );
 };
 
-export const useSearch = (): ISearchContext<T> | string => {
+export const useSearch = (): ISearchContext => {
     const context = useContext(SearchContext);
-    if (!context) return 'Error';
+    if (!context) {
+        throw new Error('useSearch must be used within a SearchProvider');
+    }
     return context;
 };
