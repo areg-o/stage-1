@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import '@/styles/index.css';
+import { useSearch } from '@/context/AppContext';
 
 export function Header() {
     const [searchValue, setSearchValue] = useState('');
+    const { setSearchText } = useSearch();
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            setSearchValue('');
+            setSearchText(searchValue);
+        } else if (e.key === 'Backspace' && searchValue === '') {
+            setSearchText('');
         }
     };
 

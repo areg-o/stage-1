@@ -2,12 +2,17 @@ import type { IUser } from '@/api/userType';
 
 interface UserListProps {
     users: IUser[];
+    searchText: string;
 }
 
-export function UserList({ users }: UserListProps) {
+export function UserList({ users, searchText }: UserListProps) {
+    users = searchText
+        ? users.filter((user) => user.name.toLowerCase().includes(searchText.toLowerCase()))
+        : users;
+
     return (
         <div className="users">
-            {users.map((user) => (
+            {users?.map((user) => (
                 <ul
                     key={user.id}
                     className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] flex flex-col mb-4"
