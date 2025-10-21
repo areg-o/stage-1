@@ -1,6 +1,5 @@
 import usersAPI from '@/api/users';
 import type { IUser } from '@/api/userType';
-import { Header } from '@/components/Header';
 import { UserList } from '@/components/UserList';
 import { useFetch } from '@/hooks/useFetch';
 
@@ -14,7 +13,6 @@ export function Dashboard() {
 
     return (
         <>
-            <Header />
             <UserList users={data || []} />
         </>
     );

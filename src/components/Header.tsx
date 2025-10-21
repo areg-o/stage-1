@@ -1,9 +1,12 @@
+import { Link } from 'react-router-dom';
 import '@/styles/index.css';
 
 export function Header() {
     return (
         <div className="flex flex-col md:flex-row items-center justify-between p-4 bg-white shadow-sm border-b border-gray-200">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4 md:mb-0">Dashboard</h1>
+            <Link to="/" className="text-2xl font-bold text-gray-900 mb-4 md:mb-0">
+                Dashboard
+            </Link>
             <div className="flex items-center space-x-4">
                 <input
                     id="search"
@@ -11,9 +14,12 @@ export function Header() {
                     type="search"
                     className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
                 />
-                <button className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition-colors duration-200">
+                <Link
+                    to="/adduser"
+                    className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition-colors duration-200"
+                >
                     Add New
-                </button>
+                </Link>
             </div>
         </div>
     );
