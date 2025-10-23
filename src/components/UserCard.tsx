@@ -6,8 +6,6 @@ interface IUserData {
 }
 
 export function UserCard({ user, handleModal }: IUserData) {
-    console.log(user);
-
     return (
         <div className="popUp">
             <div className="popUpBtns">
