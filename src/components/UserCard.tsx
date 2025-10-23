@@ -19,27 +19,27 @@ export function UserCard({ user, handleModal }: IUserData) {
                 <li>
                     <span>address</span>
                     <ul>
-                        <li>street:</li>
-                        <li>suite:</li>
-                        <li>city:</li>
-                        <li>zipcode:</li>
+                        <li>street: {user?.address.street}</li>
+                        <li>suite: {user?.address.suite}</li>
+                        <li>city: {user?.address.city}</li>
+                        <li>zipcode: {user?.address.zipcode}</li>
                         <li>
                             <span>geo</span>
                             <ul>
-                                <li>lat</li>
-                                <li>lng</li>
+                                <li>lat: {user?.address.geo.lat}</li>
+                                <li>lng: {user?.address.geo.lng}</li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li>phone:</li>
-                <li>website:</li>
+                <li>phone: {user?.phone}</li>
+                <li>website: {user?.website}</li>
                 <li>
                     <span>company</span>
                     <ul>
-                        <li>name</li>
-                        <li>catchPhrase</li>
-                        <li>bs</li>
+                        <li>name: {user?.company.name}</li>
+                        <li>catchPhrase: {user?.company.catchPhrase}</li>
+                        <li>bs: {user?.company.bs}</li>
                     </ul>
                 </li>
             </ul>
