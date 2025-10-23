@@ -2,13 +2,16 @@ import type { IUser } from '@/api/userType';
 
 interface IUserData {
     user: IUser;
+    handleModal: () => void;
 }
 
-export function UserCard({ user }: IUserData) {
+export function UserCard({ user, handleModal }: IUserData) {
+    console.log(user);
+
     return (
         <div className="popUp">
             <div className="popUpBtns">
-                <img src="../../public/x.svg" alt="x" />
+                <img onClick={handleModal} src="../../public/x.svg" alt="x" />
             </div>
             <ul className="popUpUl">
                 <li>id: {user?.id}</li>
