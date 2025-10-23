@@ -1,1 +1,4 @@
-@import '@/styles/userCard.scss';
+@use 'mixins';
+@use 'variables';
+@use 'user-card';
+@use 'header';

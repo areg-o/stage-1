@@ -9,14 +9,21 @@ export function Dashboard() {
         queryFn: () => usersAPI.getUsers(),
     });
 
+    let users = data;
+
     const { searchText } = useSearch();
+    if (searchText) {
+        users = users?.filter((user) =>
+            user.name.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()),
+        );
+    }
 
     if (loading) return <div>Loading...</div>;
     if (error) return error.message;
 
     return (
         <>
-            <UserList users={data || []} searchText={searchText} />
+            <UserList users={users || []} />
         </>
     );
 }

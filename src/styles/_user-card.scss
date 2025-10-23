@@ -1,0 +1,44 @@
+@use 'variables';
+
+.popUp {
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    z-index: 10;
+}
+
+.popUp {
+    background-color: variables.$grey;
+    width: 20em;
+    padding: variables.$paddingBlock;
+    padding-top: 0;
+    border-radius: 5px;
+}
+
+.popUp * {
+    list-style: none;
+}
+
+.popUp span:hover {
+    cursor: pointer;
+    opacity: .5;
+}
+
+.popUpBtns {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.2em 0;
+}
+
+.popUpBtns > img {
+    cursor: pointer;
+}
+
+.popUpUl {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: variables.$paddingBlock;
+}
