@@ -7,7 +7,7 @@ export function Header() {
     const [searchValue, setSearchValue] = useState('');
     const { setSearchText } = useSearch();
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = () => {
         setTimeout(() => setSearchText(searchValue), 1000);
     };
 
