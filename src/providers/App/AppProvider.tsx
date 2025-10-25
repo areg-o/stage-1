@@ -1,6 +1,7 @@
-import { SearchProvider } from "@/providers";
-import type { IAppProviderProps } from "@/types";
+import type { ReactNode } from "react";
 
-export function AppProvider({ children }: IAppProviderProps) {
+import { SearchProvider } from "@/providers";
+
+export function AppProvider({ children }: { children: ReactNode }) {
   return <SearchProvider>{children}</SearchProvider>;
 }

@@ -1,12 +1,8 @@
-import { type PropsWithChildren, useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import { SearchContext } from "@/providers";
 
-export const SearchProvider = ({
-  children,
-}: {
-  children: PropsWithChildren;
-}) => {
+export const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [searchText, setSearchText] = useState("");
 
   return (

@@ -19,7 +19,7 @@ export function useFetch<T>({
         setError(undefined);
         const resp = await queryFunc();
         setData(resp);
-      } catch (e: any) {
+      } catch (e: unknown) {
         setError(e as Error);
         setData(undefined);
       } finally {
