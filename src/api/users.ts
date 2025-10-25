@@ -1,17 +1,18 @@
-import axios from 'axios';
-
-import type { IUser } from '@/api/userType';
-import apiClient from '@/lib/apiClient';
+import apiClient from "@/lib/apiClient";
+import type { ICharacter, IUser } from "@/types";
 
 const usersAPI = {
-  async getUsers() {
-    const resp = await apiClient.get<IUser[]>('/users');
-    return resp.data;
+  async getUsers(): Promise<IUser[]> {
+    const resp = await apiClient.get<ICharacter>("character");
+    return resp.data.results;
   },
 
-  async getUserById(id: number) {
-    const resp = await axios.get<IUser>(`/users/${id}`);
-    return resp.data;
+  async search(searchText: string): Promise<IUser[]> {
+    const resp = await apiClient.get<ICharacter>(
+      `character/?name=${searchText}`
+    );
+
+    return resp.data.results;
   },
 };
 

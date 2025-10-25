@@ -1,53 +1,34 @@
-import { useState } from 'react';
-import ReactDOM from 'react-dom';
+import { useEffect, useState } from "react";
 
-import type { IUser } from '@/api/userType';
-import { UserCard } from '@/components/UserCard';
-import { useModal } from '@/hooks/useModal';
-
-interface UserListProps {
-    users: IUser[];
-}
+import { Modal, UserCard } from "@/components";
+import { useModal } from "@/hooks";
+import type { IUser, UserListProps } from "@/types";
 
 export function UserList({ users }: UserListProps) {
-    const { isOpen, handleModal } = useModal();
-    const [selectedUser, setSelectedUser] = useState(users[0]);
+  const { isOpen, handleModal } = useModal();
+  const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
 
-    return (
-        <div className="users">
-            {users?.map((user) => (
-                <ul
-                    key={user.id}
-                    onClick={() => {
-                        handleModal();
-                        setSelectedUser(user);
-                    }}
-                >
-                    <li>
-                        <div>
-                            <span>ID:</span>
-                            <span>{user.id}</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <span>Имя:</span>
-                            <span>{user.name}</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <span>Email:</span>
-                            <span>{user.email}</span>
-                        </div>
-                    </li>
-                </ul>
-            ))}
-            {isOpen &&
-                ReactDOM.createPortal(
-                    <UserCard user={selectedUser} handleModal={handleModal} />,
-                    document.body,
-                )}
-        </div>
-    );
+  useEffect(() => {
+    if (users.length > 0 && !selectedUser) setSelectedUser(users[0]);
+  }, [users]);
+
+  return (
+    <div className="users">
+      {users?.map(user => (
+        <ul
+          key={user.id}
+          onClick={() => {
+            handleModal();
+            setSelectedUser(user);
+          }}
+        >
+          <li>id: {user?.id}</li>
+          <li>name: {user?.name}</li>
+        </ul>
+      ))}
+      <Modal isOpen={isOpen} onClose={handleModal}>
+        <UserCard user={selectedUser} />
+      </Modal>
+    </div>
+  );
 }

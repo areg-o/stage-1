@@ -1,6 +1,6 @@
-@use 'variables';
+@use '../base/variables';
 
-.popUp {
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -17,16 +17,16 @@
     box-sizing: border-box;
 }
 
-.popUp * {
+.modal-overlay * {
     list-style: none;
 }
 
-.popUp span:hover {
+.modal-overlay span:hover {
     cursor: pointer;
     opacity: 0.5;
 }
 
-.popUpBtns {
+.modal-btn {
     width: 100%;
     display: flex;
     justify-content: flex-end;
@@ -34,11 +34,11 @@
     padding: 0.2em 0;
 }
 
-.popUpBtns > img {
+.modal-btn > img {
     cursor: pointer;
 }
 
-.popUpUl {
+.modal-content {
     display: flex;
     flex-direction: column;
     background-color: white;

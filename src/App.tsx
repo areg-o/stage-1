@@ -1,21 +1,23 @@
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 
-import { Layout } from '@/components/Layout';
-import { SearchProvider } from '@/context/AppContext';
-import { AddUser } from '@/pages/AddUser';
-import { Dashboard } from '@/pages/Dashboard';
+import { ErrorBoundary, Layout } from "@/components";
+import { AddUser } from "@/pages/AddUser";
+import { Dashboard } from "@/pages/Dashboard";
+import { AppProvider } from "@/providers";
 
 function App() {
-    return (
-        <SearchProvider>
-            <Routes>
-                <Route element={<Layout />}>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/adduser" element={<AddUser />} />
-                </Route>
-            </Routes>
-        </SearchProvider>
-    );
+  return (
+    <AppProvider>
+      <ErrorBoundary>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/adduser" element={<AddUser />} />
+          </Route>
+        </Routes>
+      </ErrorBoundary>
+    </AppProvider>
+  );
 }
 
 export default App;

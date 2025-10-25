@@ -1,29 +1,36 @@
-import usersAPI from '@/api/users';
-import type { IUser } from '@/api/userType';
-import { UserList } from '@/components/UserList';
-import { useSearch } from '@/context/AppContext';
-import { useFetch } from '@/hooks/useFetch';
+import { useEffect } from "react";
+
+import usersAPI from "@/api/users";
+import { UserList } from "@/components";
+import { useFetch, useSearch } from "@/hooks";
+import type { IUser } from "@/types";
 
 export function Dashboard() {
-    const { data, loading, error } = useFetch<IUser[]>({
-        queryFn: () => usersAPI.getUsers(),
-    });
+  const { data, loading, error, setQueryFunc } = useFetch<IUser[]>({
+    queryFn: () => usersAPI.getUsers(),
+  });
 
-    let users = data;
+  const { searchText } = useSearch();
 
-    const { searchText } = useSearch();
+  useEffect(() => {
     if (searchText) {
-        users = users?.filter((user) =>
-            user.name.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()),
-        );
+      setQueryFunc(() => () => usersAPI.search(searchText));
     }
+  }, [searchText]);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return error.message;
-
+  if (loading) {
     return (
-        <>
-            <UserList users={users || []} />
-        </>
+      <div>
+        <img src="spinner.gif" alt="Spinner" />
+      </div>
     );
+  }
+
+  if (error) return error.message;
+
+  return (
+    <>
+      <UserList users={data || []} />
+    </>
+  );
 }
