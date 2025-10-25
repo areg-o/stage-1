@@ -28,9 +28,5 @@ export function Dashboard() {
 
   if (error) return error.message;
 
-  return (
-    <>
-      <UserList users={data || []} />
-    </>
-  );
+  return <UserList users={data || []} />;
 }

@@ -1,5 +1,5 @@
-import type { PropsWithChildren } from "react";
+import type { JSX } from "react";
 
 export interface IAppProviderProps {
-  children: PropsWithChildren;
+  children: JSX.Element;
 }

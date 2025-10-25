@@ -1,7 +1,7 @@
-import type { PropsWithChildren } from "react";
+import type { JSX } from "react";
 
 export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  children: PropsWithChildren;
+  children: JSX.Element;
 }

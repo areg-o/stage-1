@@ -13,14 +13,15 @@ export function useFetch<T>({
 
   useEffect(() => {
     if (!enabled) return;
-
     const fetchData = async () => {
       setLoading(true);
       try {
+        setError(undefined);
         const resp = await queryFunc();
         setData(resp);
-      } catch (e) {
+      } catch (e: any) {
         setError(e as Error);
+        setData(undefined);
       } finally {
         setLoading(false);
       }
