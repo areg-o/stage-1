@@ -1,32 +1,36 @@
-import type { PropsWithChildren } from "react";
-import { useEffect, useState } from "react";
+import type { ErrorInfo, ReactNode } from "react";
+import { Component } from "react";
 
-export function ErrorBoundary({ children }: { children: PropsWithChildren }) {
-  const [hasError, setHasError] = useState(false);
-  const [errorInfo, setErrorInfo] = useState<string | null>(null);
+interface ErrorBoundaryProps {
+  children?: ReactNode;
+}
 
-  useEffect(() => {
-    const handleError = (event: ErrorEvent) => {
-      setHasError(true);
-      setErrorInfo(event.message || "Произошла непредвиденная ошибка");
-      console.error("Caught an error:", event.error);
-    };
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
 
-    window.addEventListener("error", handleError);
+export class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
 
-    return () => {
-      window.removeEventListener("error", handleError);
-    };
-  }, []);
+  static getDerivedStateFromError(): ErrorBoundaryState {
+    return { hasError: true };
+  }
 
-  if (hasError) {
-    return (
-      <div style={{ padding: "20px", color: "red" }}>
-        <h2>Что-то пошло не так</h2>
-        <p>{errorInfo}</p>
-      </div>
-    );
-  } else {
-    return <>{children}</>;
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error("Error caught by ErrorBoundary:", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Что-то пошло не так.</h1>;
+    }
+
+    return this.props.children;
   }
 }
