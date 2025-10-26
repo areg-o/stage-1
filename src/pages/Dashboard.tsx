@@ -11,15 +11,11 @@ export function Dashboard() {
   });
 
   const { searchText } = useSearch();
-  const { debounce } = useDebounce();
+  const debouncedSearch = useDebounce<string>(searchText, 1000);
 
   useEffect(() => {
-    if (searchText) {
-      const searching = () =>
-        setQueryFunc(() => () => usersAPI.search(searchText));
-      debounce(searching, 1000);
-    }
-  }, [searchText]);
+    setQueryFunc(() => () => usersAPI.search(debouncedSearch));
+  }, [debouncedSearch]);
 
   if (loading) {
     return (
