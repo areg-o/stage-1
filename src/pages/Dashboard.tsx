@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import usersAPI from "@/api/users";
 import { UserList } from "@/components";
-import { useFetch, useSearch } from "@/hooks";
+import { useDebounce, useFetch, useSearch } from "@/hooks";
 import type { IUser } from "@/types";
 
 export function Dashboard() {
@@ -11,10 +11,13 @@ export function Dashboard() {
   });
 
   const { searchText } = useSearch();
+  const { debounce } = useDebounce();
 
   useEffect(() => {
     if (searchText) {
-      setQueryFunc(() => () => usersAPI.search(searchText));
+      const searching = () =>
+        setQueryFunc(() => () => usersAPI.search(searchText));
+      debounce(searching, 1000);
     }
   }, [searchText]);
 

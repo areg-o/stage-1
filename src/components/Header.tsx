@@ -5,7 +5,6 @@ import { useSearch } from "@/hooks";
 
 export function Header() {
   const { searchText, setSearchText } = useSearch();
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
   };
