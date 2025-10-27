@@ -1,0 +1,27 @@
+@use '../base/mixins';
+@use '../base/variables';
+
+body {
+    font-family: Verdana;
+}
+
+.header {
+    @include mixins.m-block;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-bottom: 1px solid black;
+    &-item-1 {
+        font-size: 1.5em;
+        cursor: pointer;
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+    &-item-2 > button {
+        @include mixins.m-button(#605bff);
+        margin-left: 10px;
+    }
+    &-item-2 > * {
+        height: variables.$elemHeightMin;
+        box-sizing: border-box;
+    }
+}

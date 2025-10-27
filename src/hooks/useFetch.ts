@@ -1,34 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-interface IOptions<T> {
-  queryFn(): Promise<T>;
-}
+import type { IOptions, IResult } from "@/types";
 
-interface IResult<K> {
-  data: K | undefined;
-  loading: boolean;
-  error: Error | undefined;
-}
-
-export function useFetch<T>({ queryFn }: IOptions<T>): IResult<T> {
+export function useFetch<T>({
+  queryFn,
+  enabled = true,
+}: IOptions<T>): IResult<T> {
   const [data, setData] = useState<T | undefined>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(enabled);
   const [error, setError] = useState<Error | undefined>();
+  const [queryFunc, setQueryFunc] = useState(() => queryFn);
 
   useEffect(() => {
+    if (!enabled) return;
     const fetchData = async () => {
       setLoading(true);
       try {
-        const resp = await queryFn();
+        setError(undefined);
+        const resp = await queryFunc();
         setData(resp);
-      } catch (e) {
+      } catch (e: unknown) {
         setError(e as Error);
+        setData(undefined);
       } finally {
         setLoading(false);
       }
     };
-    fetchData();
-  }, []);
 
-  return { data, loading, error };
+    fetchData();
+  }, [enabled, queryFunc]);
+
+  return { data, loading, error, setQueryFunc };
 }

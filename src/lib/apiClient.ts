@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const _apiBase = 'https://jsonplaceholder.typicode.com';
+const _apiBase = "https://rickandmortyapi.com/api/";
 
 const apiClient = axios.create({
   baseURL: _apiBase,

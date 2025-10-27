@@ -1,26 +1,21 @@
-import usersAPI from '@/api/users';
-import type { IUser } from '@/api/userType';
-import { useFetch } from '@/hooks/useFetch';
+import { Route, Routes } from "react-router-dom";
+
+import { ErrorBoundary, Layout } from "@/components";
+import { AddUser, Dashboard } from "@/pages";
+import { AppProvider } from "@/providers";
 
 function App() {
-  const { data, loading, error } = useFetch<IUser[]>({
-    queryFn: () => usersAPI.getUsers(),
-  });
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>{error.message}</p>;
-  }
-
   return (
-    <>
-      {data?.map((user) => (
-        <div key={user.id}>{user.name}</div>
-      ))}
-    </>
+    <ErrorBoundary>
+      <AppProvider>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/adduser" element={<AddUser />} />
+          </Route>
+        </Routes>
+      </AppProvider>
+    </ErrorBoundary>
   );
 }
 
